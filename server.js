@@ -22,31 +22,33 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 mongoose.connect("mongodb://localhost/dbScraper");
 
+
 app.get("/scrape", function (req, res) {
-    axios.get("http://www.charlotteobserver.com/sports/").then(function (response) {
-        var $ = cheerio.load(response.data);
+  axios.get("http://www.charlotteobserver.com/sports/").then(function (response) {
+    var $ = cheerio.load(response.data);
 
-        $(".teaser").each(function (i, element) {
-            // Save an empty result object
-            var result = {};
+    $(".teaser").each(function (i, element) {
 
-            result.title = $(this).children("h4 > a").text();
-            result.link =$(this).children("h4 > a").attr("href");
-            result.summary = $(this).children("p").text();
-            
-            db.Article.create(result)
-            .then(function (dbArticle) {
-              console.log(dbArticle);
-            })
-            .catch(function (err) {
-              return res.json(err);
-            });
+      var result = {};
+
+      result.title = $(this).find("a").text();
+      result.link = $(this).find("a").attr("href");
+      result.summary = $(this).children("p").text();
+
+      db.Article.create(result)
+        .then(function (dbArticle) {
+          console.log(dbArticle);
+        })
+        .catch(function (err) {
+          return res.json(err);
         });
-    
-        res.send("Scrape Complete");
-      });
-    });
 
-    app.listen(PORT, function () {
-        console.log("App running on port " + PORT + "!");
-      });
+    });
+    
+    res.send("Scrape Complete");
+  });
+});
+
+app.listen(PORT, function () {
+  console.log("App running on port " + PORT + "!");
+});
