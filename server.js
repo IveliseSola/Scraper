@@ -1,20 +1,11 @@
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/dbScraper";
 
-// mongoose.Promise = Promise;
-// mongoose.connect(MONGODB_URI, {
-//   useMongoClient: true
-// });
-
-//My heroku link: https://limitless-peak-92095.herokuapp.com
 
 var express = require("express");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var cheerio = require("cheerio");
-// var request = require("request");
 var axios = require("axios");
-// var path = require("path");
 var db = require("./models");
 
 var PORT = 3000;
@@ -23,6 +14,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 mongoose.connect("mongodb://localhost/dbScraper");
 
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/dbScraper";
+
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
+
+//My heroku link: https://limitless-peak-92095.herokuapp.com
 
 app.get("/scrape", function (req, res) {
   axios.get("http://www.charlotteobserver.com/sports/").then(function (response) {
@@ -54,35 +52,11 @@ app.get("/articles", function(req, res) {
   db.Article.find({})
     .then(function(dbArticle) {
       res.json(dbArticle);
-      // return db.Article.count({})
-      // .then(function(count){
-      //   //  return count;
-      //    console.log(count);
-      // })
-      // .catch(function(err){
-      //   res.json(err);
-      // }); 
     })
     .catch(function(err) {
       res.json(err);
     });
 });
-
-app.get("/articles/:id", function(req, res) {
-
-  db.Article.findOne({ _id: req.params.id })
-
-    .populate("note")
-    .then(function(dbArticle) {
-
-      res.json(dbArticle);
-    })
-    .catch(function(err) {
-  
-      res.json(err);
-    });
-});
-
 
 app.post("/articles/:id", function(req, res) {
  
@@ -100,9 +74,9 @@ app.post("/articles/:id", function(req, res) {
     });
 });
 
-app.post("/delete/:id", function(req, res) {
+app.post("/delete/:title", function(req, res) {
   
-   db.Article.remove({_id: req.params.id })
+   db.Article.remove({title: req.params.title })
      .then(function(dbArticle) {
      })
      .catch(function(err) {

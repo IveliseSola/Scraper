@@ -10,10 +10,12 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
 
+
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/js/App.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <script src="assets/js/App.js"></script>
     <title>Sport News</title>
 </head>
 
@@ -60,14 +62,44 @@
         </p>
     </div>
 
-    <div class="card-footer text-white bg-primary footer">
-        <p class="footer-text"> Sport News Scraper by Ivelise Sola </p>
-    </div>
-
     <div id="display-articles">
 
     </div>
-<script> alert("html"); </script>
+    <div class="row">
+        <div id="note-modal" class="col-md-6 modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Note</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form>
+                            <div class=" form-group">
+                                <input type="text" class="form-control" id="form-note-title" placeholder="Your Title">
+                            </div>
+                            <div class=" form-group">
+                                <textarea class="form-control" id="form-note-body" rows="3" placeholder="Your Note"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button" id="save-note" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer text-white bg-primary footer">
+        <p class="footer-text"> Sport News Scraper by Ivelise Sola </p>
+    </div>
 </body>
 
 </html>
