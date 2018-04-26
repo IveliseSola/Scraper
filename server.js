@@ -14,7 +14,7 @@ var mongoose = require("mongoose");
 var cheerio = require("cheerio");
 // var request = require("request");
 var axios = require("axios");
-var path = require("path");
+// var path = require("path");
 var db = require("./models");
 
 var PORT = 3000;
@@ -39,22 +39,29 @@ app.get("/scrape", function (req, res) {
       db.Article.create(result)
         .then(function (dbArticle) {
           console.log(dbArticle);
+          alert("estoy aqui");
         })
         .catch(function (err) {
           return res.json(err);
         });
-
     });
 
-    res.send("Scrape Complete");
+    // res.send("Scrape Complete");
   });
 });
 
 app.get("/articles", function(req, res) {
   db.Article.find({})
     .then(function(dbArticle) {
-      // res.json(dbArticle);
-      res.sendFile(path.join(__dirname, "../public/index.html"))
+      res.json(dbArticle);
+      // return db.Article.count({})
+      // .then(function(count){
+      //   //  return count;
+      //    console.log(count);
+      // })
+      // .catch(function(err){
+      //   res.json(err);
+      // }); 
     })
     .catch(function(err) {
       res.json(err);
@@ -92,6 +99,16 @@ app.post("/articles/:id", function(req, res) {
       res.json(err);
     });
 });
+
+app.post("/delete/:id", function(req, res) {
+  
+   db.Article.remove({_id: req.params.id })
+     .then(function(dbArticle) {
+     })
+     .catch(function(err) {
+       res.json(err);
+     });
+ });
 
 
 app.listen(PORT, function () {

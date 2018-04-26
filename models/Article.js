@@ -4,15 +4,18 @@ var Schema = mongoose.Schema;
 var ArticleSchema = new Schema({
   title: {
     type: String,
-    required: true
+    required: true,
+    unique:true
   },
   link: {
     type: String,
-    required: true
+    required: true,
+    unique:true
   },
   summary: {
     type: String,
-    required: true
+    required: true,
+    unique:true
   },
   note: {
     type: Schema.Types.ObjectId,
@@ -20,8 +23,6 @@ var ArticleSchema = new Schema({
   }
 });
 
-// This creates our model from the above schema, using mongoose's model method
 var Article = mongoose.model("Article", ArticleSchema);
 
-// Export the Article model
 module.exports = Article;

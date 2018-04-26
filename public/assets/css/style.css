@@ -1,0 +1,21 @@
+
+.imgClass{
+    height: 50vh;
+}
+
+.footer{
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btnDelete,
+.btnAdd{margin: 1%;}
+
+.mycard{
+    position: relative;
+    left: 3%;
+    margin-right: 3%;
+}
