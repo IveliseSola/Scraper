@@ -11,16 +11,16 @@ var PORT = 3000;
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-mongoose.connect("mongodb://localhost/dbScraper");
+// mongoose.connect("mongodb://localhost/dbScraper");
 
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/dbScraper";
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
 //My heroku link: https://limitless-peak-92095.herokuapp.com
-
+//My MONGODB_URI: mongodb://heroku_z2t6frx4:9bg9m2gfr419p62o2o7iv1p4lc@ds153869.mlab.com:53869/heroku_z2t6frx4
 
 app.get("/scrape", function (req, res) {
   axios.get("http://www.charlotteobserver.com/sports/").then(function (response) {
