@@ -68,35 +68,20 @@ $(document).on("click", ".btnDelete", function () {
   });
 });
 
-$(document).on("click", "")
-
 
 $(document).on("click", "#save-note", function (e) {
   e.preventDefault();
-  var title = $("#form-note-title").val().trim();
-  var body = $("#form-note-body").val().trim();
-  var thisId = $(this).attr("data-id");
-
-  // Run a POST request to change the note, using what's entered in the inputs
+ 
   $.ajax({
     method: "POST",
-    url: "/articles/" + thisId,
+    url: "/articles/" + Id,// I dont have the id
     data: {
-      // Value taken from title input
-      title: $("#titleinput").val(),
-      // Value taken from note textarea
-      body: $("#bodyinput").val()
+      title: $("#form-note-title").val().trim(),
+      body: $("#form-note-body").val().trim()
     }
-  })
-    // With that done
-    .then(function (data) {
-      // Log the response
-      console.log(data);
-      // Empty the notes section
-      $("#notes").empty();
+  }).then(function (data) {
     });
 
-  // Also, remove the values entered in the input and textarea for note entry
-  $("#titleinput").val("");
-  $("#bodyinput").val("");
+  $("#form-note-title").val("");
+  $("#form-note-body").val("");
 });

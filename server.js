@@ -1,6 +1,5 @@
 
 
-
 var express = require("express");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
@@ -21,6 +20,7 @@ mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
 //My heroku link: https://limitless-peak-92095.herokuapp.com
+
 
 app.get("/scrape", function (req, res) {
   axios.get("http://www.charlotteobserver.com/sports/").then(function (response) {
