@@ -17,7 +17,9 @@ app.use(express.static("public"));
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/dbScraper";
 
 mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI,{
+  useMongoClient: true
+});
 
 //My heroku link: https://limitless-peak-92095.herokuapp.com
 //My MONGODB_URI: mongodb://heroku_z2t6frx4:9bg9m2gfr419p62o2o7iv1p4lc@ds153869.mlab.com:53869/heroku_z2t6frx4
