@@ -2,7 +2,7 @@ $(document).ready(function () {
 
   $("#my-article").on("click", function () {
     $.get("/articles", function (data) {
-      alert("articles");
+  
       for (var i = 0; i < data.length; i++) {
 
         var newCardContainer = $("<div>");
@@ -16,11 +16,15 @@ $(document).ready(function () {
         newTitleContainer.append(data[i].title);
         // newTitleContainer.attr("data-id", i++);
 
+        var newLinkContainer = $("<p>");
+        newLInkContainer.addClass("card-text");
+        newLinkContainer.append(data[i].link);
+
         var newSummaryContainer = $("<p>");
         newSummaryContainer.addClass("card-text");
         newSummaryContainer.append(data[i].summary);
 
-        newCardBodyContainer.append(newTitleContainer, newSummaryContainer);
+        newCardBodyContainer.append(newTitleContainer, newSummaryContainer, newLinkContainer);
 
         newCardContainer.append(newCardBodyContainer);
 
