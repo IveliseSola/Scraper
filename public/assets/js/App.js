@@ -1,10 +1,12 @@
 $(document).ready(function () {
 
   $("#my-article").on("click", function () {
-    $.get("/articles", function (data) {
-  
+    $.ajax({
+      method: "GET",
+      url: "/articles"
+    }).then(function(data) {
       for (var i = 0; i < data.length; i++) {
-
+alert("inside loop");
         var newCardContainer = $("<div>");
         newCardContainer.addClass("col-md-9 card border-secondary mb-3 mycard");
 
@@ -52,40 +54,40 @@ $(document).ready(function () {
   });
 
 
-  $("#scrape").on("click", function () {
-    $.get("/scrape", function (data) {
-    })
-  });
+  // $("#scrape").on("click", function () {
+  //   $.get("/scrape", function (data) {
+  //   })
+  // });
 
 });
 
-$(document).on("click", "#home", function () {
-  $("#display-articles").empty();
-});
+// $(document).on("click", "#home", function () {
+//   $("#display-articles").empty();
+// });
 
-$(document).on("click", ".btnDelete", function () {
-  var title = $(this).attr("data-id");
-  $.ajax({
-    method: "DELETE",
-    url: "/delete/" + title
-  }).then(function (data) {
-  });
-});
+// $(document).on("click", ".btnDelete", function () {
+//   var title = $(this).attr("data-id");
+//   $.ajax({
+//     method: "DELETE",
+//     url: "/delete/" + title
+//   }).then(function (data) {
+//   });
+// });
 
 
-$(document).on("click", "#save-note", function (e) {
-  e.preventDefault();
+// $(document).on("click", "#save-note", function (e) {
+//   e.preventDefault();
  
-  $.ajax({
-    method: "POST",
-    url: "/articles/" + Id,// I dont have the id
-    data: {
-      title: $("#form-note-title").val().trim(),
-      body: $("#form-note-body").val().trim()
-    }
-  }).then(function (data) {
-    });
+//   $.ajax({
+//     method: "POST",
+//     url: "/articles/" + Id,// I dont have the id
+//     data: {
+//       title: $("#form-note-title").val().trim(),
+//       body: $("#form-note-body").val().trim()
+//     }
+//   }).then(function (data) {
+//     });
 
-  $("#form-note-title").val("");
-  $("#form-note-body").val("");
-});
+//   $("#form-note-title").val("");
+//   $("#form-note-body").val("");
+// });
