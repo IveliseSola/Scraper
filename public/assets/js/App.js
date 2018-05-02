@@ -4,9 +4,9 @@ $(document).ready(function () {
     $.ajax({
       method: "GET",
       url: "/articles"
-    }).then(function(data) {
+    }).then(function (data) {
       for (var i = 0; i < data.length; i++) {
-alert("inside loop");
+
         var newCardContainer = $("<div>");
         newCardContainer.addClass("col-md-9 card border-secondary mb-3 mycard");
 
@@ -18,15 +18,15 @@ alert("inside loop");
         newTitleContainer.append(data[i].title);
         // newTitleContainer.attr("data-id", i++);
 
-        var newLinkContainer = $("<p>");
-        newLInkContainer.addClass("card-text");
-        newLinkContainer.append(data[i].link);
+        // var newLinkContainer = $("<p>");
+        // newLInkContainer.addClass("card-text");
+        // newLinkContainer.append(data[i].link);
 
         var newSummaryContainer = $("<p>");
         newSummaryContainer.addClass("card-text");
         newSummaryContainer.append(data[i].summary);
 
-        newCardBodyContainer.append(newTitleContainer, newSummaryContainer, newLinkContainer);
+        newCardBodyContainer.append(newTitleContainer, newSummaryContainer);
 
         newCardContainer.append(newCardBodyContainer);
 
@@ -48,18 +48,25 @@ alert("inside loop");
 
         $("#display-articles").append(newDiv);
 
-        // $("#display-articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link  + "<br />" + data[i].summary +"</p>");
       }
     });
   });
 
 
-  // $("#scrape").on("click", function () {
-  //   $.get("/scrape", function (data) {
-  //   })
-  // });
+  $("#scrape").on("click", function () {
+    $.get("/scrape", function (data) {
+    })
+  });
 
 });
+
+// $("document").on("click", "#scrape", function () {
+//   $.ajax({
+//     method: "GET",
+//     url: "/scrape"
+//   }).then(function (data) {
+//   });
+// });
 
 // $(document).on("click", "#home", function () {
 //   $("#display-articles").empty();
@@ -77,7 +84,7 @@ alert("inside loop");
 
 // $(document).on("click", "#save-note", function (e) {
 //   e.preventDefault();
- 
+
 //   $.ajax({
 //     method: "POST",
 //     url: "/articles/" + Id,// I dont have the id
