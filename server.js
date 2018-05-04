@@ -13,7 +13,7 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 // mongoose.connect("mongodb://localhost/dbScraper");
-  
+
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/dbScraper";
 
@@ -37,53 +37,54 @@ app.get("/scrape", function (req, res) {
 
       db.Article.create(result)
         .then(function (dbArticle) {
-          console.log(dbArticle);
-          alert("estoy aqui");
         })
         .catch(function (err) {
           return res.json(err);
         });
     });
-
-    // res.send("Scrape Complete");
   });
 });
 
-app.get("/articles", function(req, res) {
+app.get("/count", function (req, res) {
+  db.Article.count().then(function (thecount) {
+    return thecount;
+  });
+});
+
+app.get("/articles", function (req, res) {
   db.Article.find({})
-    .then(function(dbArticle) {
+    .then(function (dbArticle) {
       res.json(dbArticle);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       res.json(err);
     });
 });
 
-app.post("/articles/:id", function(req, res) {
- 
+app.post("/articles/:id", function (req, res) {
   db.Note.create(req.body)
-    .then(function(dbNote) {
+    .then(function (dbNote) {
       return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
     })
-    .then(function(dbArticle) {
-   
+    .then(function (dbArticle) {
+
       res.json(dbArticle);
     })
-    .catch(function(err) {
-  
+    .catch(function (err) {
+
       res.json(err);
     });
 });
 
-app.post("/delete/:title", function(req, res) {
-  
-   db.Article.remove({title: req.params.title })
-     .then(function(dbArticle) {
-     })
-     .catch(function(err) {
-       res.json(err);
-     });
- });
+app.delete("/delete/:title", function (req, res) {
+  db.Article.deleteOne({'title': req.params.title })
+  .then(function(dbArticle) {
+   res.json(dbArticle);
+  })
+  .catch(function(err){
+    res.json(err);
+  })
+});
 
 
 app.listen(PORT, function () {
